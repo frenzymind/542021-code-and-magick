@@ -1,9 +1,28 @@
+'use strict';
+
+window.findMaxTime = function(times) {
+
+      if (times.lenght == 0) {
+        return 1;
+      }
+
+      var max = times[0];
+
+      for (var i = 1; i < times.lenght; i++) {
+        if (times[i] > max) {
+          max = times[i];
+        }
+      }
+}
+
 window.renderStatistics = function(ctx, names, times) {
     var x = 100;
     var y = 10;
     var width = 420;
     var heigh = 270;
     var offSet = 10;
+    var offSetTextX = 15;
+    var offSetTextY = 30;
     var titleTextLevel1 = 'Ура вы победили!';
     var titleTextLevel2 = 'Список результатов:';
 
@@ -15,7 +34,39 @@ window.renderStatistics = function(ctx, names, times) {
 
     ctx.font = '16px PT Mono';
     ctx.fillStyle = 'black';
-    ctx.fillText(titleTextLevel1, x + offSet, y + offSet * 4);
+    ctx.fillText(titleTextLevel1, x + offSetTextX, y + offSetTextY);
 
-    ctx.fillText(titleTextLevel2, x + offSet, y + offSet * 6);
-  }
+    ctx.fillText(titleTextLevel2, x + offSetTextX, y + offSetTextY * 1.6);
+
+    var gistStartX = 150;
+    var gistStartY = 240;
+    var gistWidth = 40;
+    var gistHeight = 150;
+    var gistDistance = 50;
+    var gistTextTopOffSet = -5;
+    var gistTextBotOffSet = 15;
+
+    for (var i = 0; i < names.length; i++) {
+
+      if (names[i] === 'Вы') {
+        ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+      }
+      else {
+        ctx.fillStyle = 'rgba(0, 30, 255,'+ Math.random() +')';
+      }
+
+      var posX = gistStartX + (gistWidth + gistDistance) * i;
+      var max = Math.max.apply(null, times);
+      var gistValue = Math.round(times[i] * gistHeight / max);
+
+      ctx.fillRect(posX, gistStartY, gistWidth, -gistValue);
+
+      ctx.fillStyle = 'black';
+      ctx.fillText(names[i], posX, gistStartY + gistTextBotOffSet);
+      ctx.fillText(Math.round(times[i]), posX, gistStartY - gistValue + gistTextTopOffSet);
+    }
+
+ }
+
+
+
