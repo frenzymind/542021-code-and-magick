@@ -16,7 +16,7 @@ function drawRect(x, y, width, height, ctx, style) {
   return;
 }
 
-window.renderStatistics = function( ctx, names, times) {
+window.renderStatistics = function (ctx, names, times) {
 
   var x = 100;
   var y = 10;
@@ -69,4 +69,5 @@ window.renderStatistics = function( ctx, names, times) {
     drawText(names[i], posX, gistStartY + gistTextBotOffSet, ctx, style);
     drawText(Math.round(times[i]), posX, gistStartY - gistValue + gistTextTopOffSet, ctx, style);
   }
+
 }
