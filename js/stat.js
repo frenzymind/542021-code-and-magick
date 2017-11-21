@@ -70,4 +70,4 @@ window.renderStatistics = function (ctx, names, times) {
     drawText(Math.round(times[i]), posX, gistStartY - gistValue + gistTextTopOffSet, ctx, style);
   }
 
-}
+};
