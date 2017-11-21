@@ -1,18 +1,11 @@
 'use strict';
 
-window.findMaxTime = function(times) {
+function drawText(text, x, y, ctx, style) {
 
-      if (times.lenght == 0) {
-        return 1;
-      }
+   ctx.fillStyle = style;
+   ctx.fillText(text, x, y);
 
-      var max = times[0];
-
-      for (var i = 1; i < times.lenght; i++) {
-        if (times[i] > max) {
-          max = times[i];
-        }
-      }
+   return 0;
 }
 
 window.renderStatistics = function(ctx, names, times) {
@@ -33,8 +26,9 @@ window.renderStatistics = function(ctx, names, times) {
     ctx.fillRect(x, y, width, heigh);
 
     ctx.font = '16px PT Mono';
-    ctx.fillStyle = 'black';
-    ctx.fillText(titleTextLevel1, x + offSetTextX, y + offSetTextY);
+    //ctx.fillStyle = 'black';
+    //ctx.fillText(titleTextLevel1, x + offSetTextX, y + offSetTextY);
+    drawText(titleTextLevel1, x + offSetTextX, y + offSetTextY, ctx, 'black');
 
     ctx.fillText(titleTextLevel2, x + offSetTextX, y + offSetTextY * 1.6);
 
