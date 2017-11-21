@@ -16,7 +16,7 @@ function drawRect(x, y, width, height, ctx, style) {
   return;
 }
 
-window.renderStatistics = function(ctx, names, times) {
+window.renderStatistics = function( ctx, names, times) {
 
   var x = 100;
   var y = 10;
@@ -55,9 +55,8 @@ window.renderStatistics = function(ctx, names, times) {
 
     if (names[i] === 'Вы') {
       style = 'rgba(255, 0, 0, 1)';
-    }
-    else {
-      style = 'rgba(0, 30, 255,'+ Math.random() +')';
+    } else {
+      style = 'rgba(0, 30, 255,' + Math.random() + ')';
     }
 
     var posX = gistStartX + (gistWidth + gistDistance) * i;
