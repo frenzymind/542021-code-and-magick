@@ -8,6 +8,14 @@ function drawText(text, x, y, ctx, style) {
    return;
 }
 
+function drawRect(x, y, width, height, ctx, style) {
+
+   ctx.fillStyle = style;
+   ctx.fillRect(x, y, width, height);
+
+   return;
+}
+
 window.renderStatistics = function(ctx, names, times) {
     var x = 100;
     var y = 10;
@@ -21,18 +29,17 @@ window.renderStatistics = function(ctx, names, times) {
     var lineParagraphFactor = 1.6;
     var style = 'black';
 
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-    ctx.fillRect(x + offSet, y + offSet, width, heigh);
+    style = 'rgba(0, 0, 0, 0.7)';
+    drawRect(x + offSet, y + offSet, width, heigh, ctx, style);
 
-    ctx.fillStyle = 'white';
-    ctx.fillRect(x, y, width, heigh);
+    style = 'white';
+    drawRect(x, y, width, heigh, ctx, style);
 
     ctx.font = '16px PT Mono';
-    //ctx.fillStyle = 'black';
-    //ctx.fillText(titleTextLevel1, x + offSetTextX, y + offSetTextY);
+
+    style = 'black';
     drawText(titleTextLevel1, x + offSetTextX, y + offSetTextY, ctx, style);
 
-    //ctx.fillText(titleTextLevel2, x + offSetTextX, y + offSetTextY * 1.6);
     drawText(titleTextLevel2, x + offSetTextX, y + offSetTextY * lineParagraphFactor, ctx, style);
 
     var gistStartX = 150;
@@ -56,13 +63,10 @@ window.renderStatistics = function(ctx, names, times) {
       var max = Math.max.apply(null, times);
       var gistValue = Math.round(times[i] * gistHeight / max);
 
-      ctx.fillStyle = style;
-      ctx.fillRect(posX, gistStartY, gistWidth, -gistValue);
+      drawRect(posX, gistStartY, gistWidth, -gistValue, ctx, style);
 
       style = 'black';
-      //ctx.fillText(names[i], posX, gistStartY + gistTextBotOffSet);
       drawText(names[i], posX, gistStartY + gistTextBotOffSet, ctx, style);
-      //ctx.fillText(Math.round(times[i]), posX, gistStartY - gistValue + gistTextTopOffSet);
       drawText(Math.round(times[i]), posX, gistStartY - gistValue + gistTextTopOffSet, ctx, style);
     }
 
