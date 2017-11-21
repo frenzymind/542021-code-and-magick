@@ -5,7 +5,7 @@ function drawText(text, x, y, ctx, style) {
    ctx.fillStyle = style;
    ctx.fillText(text, x, y);
 
-   return 0;
+   return;
 }
 
 window.renderStatistics = function(ctx, names, times) {
