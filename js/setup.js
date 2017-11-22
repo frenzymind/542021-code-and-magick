@@ -97,7 +97,7 @@ for (var i = 0; i < wizards.length; i++) {
    fragment.appendChild(renderWizard(wizards[i]));
 
 }
-var test;
+
 similarList.appendChild(fragment);
 inventory.classList.remove('hidden');
 similarArea.classList.remove('hidden');
