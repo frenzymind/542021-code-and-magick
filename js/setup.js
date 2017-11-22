@@ -39,32 +39,32 @@ var WIZARD_EYE_COLORS = [
   'green'
 ];
 
-function generateRandomInt (min, max) {
+function generateRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function generateWizard () {
+function generateWizard() {
 
   var wizard = {};
 
   var max = WIZARD_NAMES.length;
   var min = 0;
 
-  var randomId = generateRandomInt(0, max);
+  var randomId = generateRandomInt(min, max);
   wizard.name = WIZARD_NAMES[randomId] + ' ' + WIZARD_LAST_NAMES[randomId];
 
   max = WIZARD_COAT_COLORS.length;
-  randomId = generateRandomInt(0, max);
+  randomId = generateRandomInt(min, max);
   wizard.coatColor = WIZARD_COAT_COLORS[randomId];
 
   max = WIZARD_EYE_COLORS.length;
-  randomId = generateRandomInt(0, max);
+  randomId = generateRandomInt(min, max);
   wizard.eyesColor = WIZARD_EYE_COLORS[randomId];
 
   return wizard;
 }
 
-function renderWizard (wizard) {
+function renderWizard(wizard) {
 
   var wizardElement = similarWizardTemplate.cloneNode(true);
 
@@ -92,9 +92,9 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template').c
 
 var fragment = document.createDocumentFragment();
 
-for (var i = 0; i < wizards.length; i++) {
+for (i = 0; i < wizards.length; i++) {
 
-   fragment.appendChild(renderWizard(wizards[i]));
+  fragment.appendChild(renderWizard(wizards[i]));
 
 }
 
