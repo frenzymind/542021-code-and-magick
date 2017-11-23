@@ -47,19 +47,11 @@ function generateWizard() {
 
   var wizard = {};
 
-  var max = WIZARD_NAMES.length;
-  var min = 0;
+  wizard.name = getRandomArrayElement(WIZARD_NAMES, true);
 
-  var randomId = generateRandomInt(min, max);
-  wizard.name = WIZARD_NAMES[randomId] + ' ' + WIZARD_LAST_NAMES[randomId];
+  wizard.coatColor = getRandomArrayElement(WIZARD_COAT_COLORS);
 
-  max = WIZARD_COAT_COLORS.length;
-  randomId = generateRandomInt(min, max);
-  wizard.coatColor = WIZARD_COAT_COLORS[randomId];
-
-  max = WIZARD_EYE_COLORS.length;
-  randomId = generateRandomInt(min, max);
-  wizard.eyesColor = WIZARD_EYE_COLORS[randomId];
+  wizard.eyesColor = getRandomArrayElement(WIZARD_EYE_COLORS);
 
   return wizard;
 }
@@ -73,6 +65,20 @@ function renderWizard(wizard) {
   wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
 
   return wizardElement;
+}
+
+function getRandomArrayElement(array, isName = false) {
+
+  var min = 0;
+  var max = array.length;
+
+  var randomId = generateRandomInt(min, max);
+
+  if (isName === true) {
+    return array[randomId] + ' ' + WIZARD_LAST_NAMES[randomId];
+  }
+
+  return array[randomId];
 }
 
 var wizards = [];
