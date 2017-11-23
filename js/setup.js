@@ -67,7 +67,7 @@ function renderWizard(wizard, template) {
   return wizardElement;
 }
 
-function getRandomArrayElement(array, isName = false) {
+function getRandomArrayElement(array, isName) {
 
   var min = 0;
   var max = array.length;
