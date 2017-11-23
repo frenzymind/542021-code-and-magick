@@ -56,9 +56,9 @@ function generateWizard() {
   return wizard;
 }
 
-function renderWizard(wizard) {
+function renderWizard(wizard, template) {
 
-  var wizardElement = similarWizardTemplate.cloneNode(true);
+  var wizardElement = template.cloneNode(true);
 
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
   wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
@@ -100,7 +100,7 @@ var fragment = document.createDocumentFragment();
 
 for (i = 0; i < wizards.length; i++) {
 
-  fragment.appendChild(renderWizard(wizards[i]));
+  fragment.appendChild(renderWizard(wizards[i], similarWizardTemplate));
 
 }
 
