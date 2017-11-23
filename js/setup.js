@@ -47,7 +47,8 @@ function generateWizard() {
 
   var wizard = {};
 
-  wizard.name = getRandomArrayElement(WIZARD_NAMES, true);
+  var randomId = generateRandomInt(0, WIZARD_NAMES.length);
+  wizard.name = WIZARD_NAMES[randomId] + ' ' + WIZARD_LAST_NAMES[randomId];
 
   wizard.coatColor = getRandomArrayElement(WIZARD_COAT_COLORS);
 
@@ -67,16 +68,12 @@ function renderWizard(wizard, template) {
   return wizardElement;
 }
 
-function getRandomArrayElement(array, isName) {
+function getRandomArrayElement(array) {
 
   var min = 0;
   var max = array.length;
 
   var randomId = generateRandomInt(min, max);
-
-  if (isName === true) {
-    return array[randomId] + ' ' + WIZARD_LAST_NAMES[randomId];
-  }
 
   return array[randomId];
 }
