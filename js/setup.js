@@ -81,29 +81,50 @@ function getRandomArrayElement(array, isName = false) {
   return array[randomId];
 }
 
-var wizards = [];
-var wizardsCount = 4;
+function getSimilarWizards(count) {
 
-for (var i = 0; i < wizardsCount; i++) {
+  var wizards = [];
 
-  wizards[i] = generateWizard();
+  for (var i = 0; i < count; i++) {
 
+    wizards[i] = generateWizard();
+
+  }
+
+  return wizards;
 }
 
-var inventory = document.querySelector('div.overlay.setup.hidden');
-var similarArea = inventory.querySelector('.setup-similar');
-var similarList = similarArea.querySelector('.setup-similar-list');
+function getWizardsFragment(wizards, similarWizardTemplate) {
 
-var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+  var fragment = document.createDocumentFragment();
 
-var fragment = document.createDocumentFragment();
+  for (var i = 0; i < wizards.length; i++) {
 
-for (i = 0; i < wizards.length; i++) {
+    fragment.appendChild(renderWizard(wizards[i], similarWizardTemplate));
 
-  fragment.appendChild(renderWizard(wizards[i], similarWizardTemplate));
+  }
 
+  return fragment;
 }
 
-similarList.appendChild(fragment);
-inventory.classList.remove('hidden');
-similarArea.classList.remove('hidden');
+function showSetup() {
+
+  var wizards = [];
+  var wizardsCount = 4;
+
+  wizards = getSimilarWizards(wizardsCount);
+
+  var inventory = document.querySelector('div.overlay.setup.hidden');
+  var similarArea = inventory.querySelector('.setup-similar');
+  var similarList = similarArea.querySelector('.setup-similar-list');
+
+  var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+
+  var fragment = getWizardsFragment(wizards, similarWizardTemplate);
+
+  similarList.appendChild(fragment);
+  inventory.classList.remove('hidden');
+  similarArea.classList.remove('hidden');
+}
+
+showSetup();
