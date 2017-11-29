@@ -120,7 +120,7 @@ function showSetup() {
   var fragment = getWizardsFragment(wizards, similarWizardTemplate);
 
   similarList.appendChild(fragment);
-  inventory.classList.remove('hidden');
+  //inventory.classList.remove('hidden');
   similarArea.classList.remove('hidden');
 }
 
