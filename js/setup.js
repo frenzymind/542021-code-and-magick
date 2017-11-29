@@ -39,6 +39,15 @@ var WIZARD_EYE_COLORS = [
   'green'
 ];
 
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+var inventory;
+var inventorySetupOpen;
+var inventorySetupClose;
+var inventorySetupInputUserName;
+var inventoryCloseButton;
+
 function generateRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -104,6 +113,88 @@ function getWizardsFragment(wizards, similarWizardTemplate) {
   return fragment;
 }
 
+function openInventory() {
+
+  if (inventory === undefined) {
+    return;
+  }
+
+  inventory.classList.remove('hidden');
+  document.addEventListener('keydown', onInventoryKeyDown);
+}
+
+function closeInventory() {
+
+  if (inventory === undefined) {
+    return;
+  }
+
+  inventory.classList.add('hidden');
+  document.removeEventListener('keydown', onInventoryKeyDown);
+  //debugger;
+}
+
+var onSetupOpenClick = function() {
+
+  openInventory();
+}
+
+var onSetupCloseClick = function() {
+
+  closeInventory();
+}
+
+var onSetupOpenKeyDown = function(evt) {
+
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openInventory();
+  }
+}
+
+var onSetupCloseKeyDown = function(evt) {
+
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closeInventory();
+  }
+}
+
+var onInventoryKeyDown = function(evt) {
+
+  if (evt.target === inventorySetupInputUserName) {
+    return;
+  }
+
+  if (evt.keyCode === ESC_KEYCODE) {
+    closeInventory();
+  }
+}
+
+var onInventoryCloseButtonClick = function () {
+
+    closeInventory();
+}
+
+var onInventoryCloseButtonKeyDown = function () {
+
+    if (evt.keyCode === ENTER_KEYCODE) {
+      closeInventory();
+    }
+}
+
+function setListeners() {
+
+  inventorySetupOpen.addEventListener('click', onSetupOpenClick);
+  inventorySetupOpen.addEventListener('keydown', onSetupOpenKeyDown);
+
+  inventorySetupClose.addEventListener('click', onSetupCloseClick);
+  inventorySetupClose.addEventListener('keydown', onSetupCloseKeyDown);
+
+  inventoryCloseButton.addEventListener('click', onInventoryCloseButtonClick);
+  inventoryCloseButton.addEventListener('keydown', onInventoryCloseButtonKeyDown);
+}
+
+
+
 function showSetup() {
 
   var wizards = [];
@@ -111,7 +202,12 @@ function showSetup() {
 
   wizards = getSimilarWizards(wizardsCount);
 
-  var inventory = document.querySelector('div.overlay.setup.hidden');
+  inventory = document.querySelector('div.overlay.setup.hidden');
+  inventorySetupOpen = document.querySelector('div.setup-open');
+  inventorySetupClose = inventory.querySelector('.setup-close');
+  inventorySetupInputUserName = inventory.querySelector('.setup-user-name');
+  inventoryCloseButton = inventory.querySelector('.setup-submit');
+
   var similarArea = inventory.querySelector('.setup-similar');
   var similarList = similarArea.querySelector('.setup-similar-list');
 
@@ -121,7 +217,9 @@ function showSetup() {
 
   similarList.appendChild(fragment);
   //inventory.classList.remove('hidden');
-  similarArea.classList.remove('hidden');
+  //similarArea.classList.remove('hidden');
+
+  setListeners();
 }
 
 showSetup();
