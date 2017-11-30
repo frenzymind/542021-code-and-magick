@@ -126,7 +126,7 @@ function getWizardsFragment(wizards, similarWizardTemplate) {
 
 function openInventory() {
 
-  if (inventory === undefined) {
+  if (typeof inventory === 'undefined') {
     return;
   }
 
@@ -136,13 +136,12 @@ function openInventory() {
 
 function closeInventory() {
 
-  if (inventory === undefined) {
+  if (typeof inventory === 'undefined') {
     return;
   }
 
   inventory.classList.add('hidden');
   document.removeEventListener('keydown', onInventoryKeyDown);
-  //debugger;
 }
 
 function setWizardCoatColor(color) {
@@ -163,26 +162,26 @@ function setWizardFireballColor(color) {
 var onSetupOpenClick = function() {
 
   openInventory();
-}
+};
 
 var onSetupCloseClick = function() {
 
   closeInventory();
-}
+};
 
 var onSetupOpenKeyDown = function(evt) {
 
   if (evt.keyCode === ENTER_KEYCODE) {
     openInventory();
   }
-}
+};
 
 var onSetupCloseKeyDown = function(evt) {
 
   if (evt.keyCode === ENTER_KEYCODE) {
     closeInventory();
   }
-}
+};
 
 var onInventoryKeyDown = function(evt) {
 
@@ -193,34 +192,34 @@ var onInventoryKeyDown = function(evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     closeInventory();
   }
-}
+};
 
 var onInventorySaveButtonClick = function () {
 
     closeInventory();
-}
+};
 
-var onInventorySaveButtonKeyDown = function () {
+var onInventorySaveButtonKeyDown = function (evt) {
 
-    if (evt.keyCode === ENTER_KEYCODE) {
-      closeInventory();
-    }
-}
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closeInventory();
+  }
+};
 
 var onInventoryCoatClick = function() {
 
   setWizardCoatColor(getRandomArrayElement(WIZARD_COAT_COLORS));
-}
+};
 
 var onInventoryEyeClick = function() {
 
   setWizardEyeColor(getRandomArrayElement(WIZARD_EYE_COLORS));
-}
+};
 
 var onInventoryFireballClick = function() {
 
   setWizardFireballColor(getRandomArrayElement(FIRE_BALL_COLORS));
-}
+};
 
 function setListeners() {
 
@@ -267,8 +266,8 @@ function showSetup() {
   var fragment = getWizardsFragment(wizards, similarWizardTemplate);
 
   similarList.appendChild(fragment);
-  //inventory.classList.remove('hidden');
-  //similarArea.classList.remove('hidden');
+  //  inventory.classList.remove('hidden');
+  //  similarArea.classList.remove('hidden');
 
   setListeners();
 }
