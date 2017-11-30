@@ -47,6 +47,8 @@ var inventorySetupOpen;
 var inventorySetupClose;
 var inventorySetupInputUserName;
 var inventorySaveButton;
+var inventoryWizardCoat;
+var inventoryWizardEye;
 
 function generateRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -134,6 +136,16 @@ function closeInventory() {
   //debugger;
 }
 
+function setWizardCoatColor(color) {
+
+  inventoryWizardCoat.style.fill = color;
+}
+
+function setWizardEyeColor(color) {
+
+  inventoryWizardEye.style.fill = color;
+}
+
 var onSetupOpenClick = function() {
 
   openInventory();
@@ -169,16 +181,26 @@ var onInventoryKeyDown = function(evt) {
   }
 }
 
-var oninventorySaveButtonClick = function () {
+var onInventorySaveButtonClick = function () {
 
     closeInventory();
 }
 
-var oninventorySaveButtonKeyDown = function () {
+var onInventorySaveButtonKeyDown = function () {
 
     if (evt.keyCode === ENTER_KEYCODE) {
       closeInventory();
     }
+}
+
+var onInventoryCoatClick = function(evt) {
+
+  setWizardCoatColor(getRandomArrayElement(WIZARD_COAT_COLORS));
+}
+
+var onInventoryEyeClick = function(evt) {
+
+  setWizardEyeColor(getRandomArrayElement(WIZARD_EYE_COLORS));
 }
 
 function setListeners() {
@@ -189,8 +211,11 @@ function setListeners() {
   inventorySetupClose.addEventListener('click', onSetupCloseClick);
   inventorySetupClose.addEventListener('keydown', onSetupCloseKeyDown);
 
-  inventorySaveButton.addEventListener('click', oninventorySaveButtonClick);
-  inventorySaveButton.addEventListener('keydown', oninventorySaveButtonKeyDown);
+  inventorySaveButton.addEventListener('click', onInventorySaveButtonClick);
+  inventorySaveButton.addEventListener('keydown', onInventorySaveButtonKeyDown);
+
+  inventoryWizardCoat.addEventListener('click', onInventoryCoatClick);
+  inventoryWizardEye.addEventListener('click', onInventoryEyeClick);
 }
 
 
@@ -207,6 +232,8 @@ function showSetup() {
   inventorySetupClose = inventory.querySelector('.setup-close');
   inventorySetupInputUserName = inventory.querySelector('.setup-user-name');
   inventorySaveButton = inventory.querySelector('.setup-submit');
+  inventoryWizardCoat = inventory.querySelector('.setup-wizard .wizard-coat');
+  inventoryWizardEye = inventory.querySelector('.setup-wizard .wizard-eyes');
 
   var similarArea = inventory.querySelector('.setup-similar');
   var similarList = similarArea.querySelector('.setup-similar-list');
