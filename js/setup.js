@@ -46,7 +46,7 @@ var inventory;
 var inventorySetupOpen;
 var inventorySetupClose;
 var inventorySetupInputUserName;
-var inventoryCloseButton;
+var inventorySaveButton;
 
 function generateRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -169,12 +169,12 @@ var onInventoryKeyDown = function(evt) {
   }
 }
 
-var onInventoryCloseButtonClick = function () {
+var oninventorySaveButtonClick = function () {
 
     closeInventory();
 }
 
-var onInventoryCloseButtonKeyDown = function () {
+var oninventorySaveButtonKeyDown = function () {
 
     if (evt.keyCode === ENTER_KEYCODE) {
       closeInventory();
@@ -189,8 +189,8 @@ function setListeners() {
   inventorySetupClose.addEventListener('click', onSetupCloseClick);
   inventorySetupClose.addEventListener('keydown', onSetupCloseKeyDown);
 
-  inventoryCloseButton.addEventListener('click', onInventoryCloseButtonClick);
-  inventoryCloseButton.addEventListener('keydown', onInventoryCloseButtonKeyDown);
+  inventorySaveButton.addEventListener('click', oninventorySaveButtonClick);
+  inventorySaveButton.addEventListener('keydown', oninventorySaveButtonKeyDown);
 }
 
 
@@ -206,7 +206,7 @@ function showSetup() {
   inventorySetupOpen = document.querySelector('div.setup-open');
   inventorySetupClose = inventory.querySelector('.setup-close');
   inventorySetupInputUserName = inventory.querySelector('.setup-user-name');
-  inventoryCloseButton = inventory.querySelector('.setup-submit');
+  inventorySaveButton = inventory.querySelector('.setup-submit');
 
   var similarArea = inventory.querySelector('.setup-similar');
   var similarList = similarArea.querySelector('.setup-similar-list');
