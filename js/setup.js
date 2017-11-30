@@ -39,6 +39,14 @@ var WIZARD_EYE_COLORS = [
   'green'
 ];
 
+var FIRE_BALL_COLORS = [
+  '#ee4830',
+  '#30a8ee',
+  '#5ce6c0',
+  '#e848d5',
+  '#e6e848'
+];
+
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
 
@@ -49,6 +57,7 @@ var inventorySetupInputUserName;
 var inventorySaveButton;
 var inventoryWizardCoat;
 var inventoryWizardEye;
+var inventoryFireball;
 
 function generateRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -146,6 +155,11 @@ function setWizardEyeColor(color) {
   inventoryWizardEye.style.fill = color;
 }
 
+function setWizardFireballColor(color) {
+
+  inventoryFireball.style.background = color;
+}
+
 var onSetupOpenClick = function() {
 
   openInventory();
@@ -193,14 +207,19 @@ var onInventorySaveButtonKeyDown = function () {
     }
 }
 
-var onInventoryCoatClick = function(evt) {
+var onInventoryCoatClick = function() {
 
   setWizardCoatColor(getRandomArrayElement(WIZARD_COAT_COLORS));
 }
 
-var onInventoryEyeClick = function(evt) {
+var onInventoryEyeClick = function() {
 
   setWizardEyeColor(getRandomArrayElement(WIZARD_EYE_COLORS));
+}
+
+var onInventoryFireballClick = function() {
+
+  setWizardFireballColor(getRandomArrayElement(FIRE_BALL_COLORS));
 }
 
 function setListeners() {
@@ -216,6 +235,7 @@ function setListeners() {
 
   inventoryWizardCoat.addEventListener('click', onInventoryCoatClick);
   inventoryWizardEye.addEventListener('click', onInventoryEyeClick);
+  inventoryFireball.addEventListener('click', onInventoryFireballClick);
 }
 
 
@@ -234,6 +254,7 @@ function showSetup() {
   inventorySaveButton = inventory.querySelector('.setup-submit');
   inventoryWizardCoat = inventory.querySelector('.setup-wizard .wizard-coat');
   inventoryWizardEye = inventory.querySelector('.setup-wizard .wizard-eyes');
+  inventoryFireball = inventory.querySelector('.setup-fireball-wrap');
 
   var similarArea = inventory.querySelector('.setup-similar');
   var similarList = similarArea.querySelector('.setup-similar-list');
