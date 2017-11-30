@@ -238,14 +238,7 @@ function setListeners() {
   inventoryFireball.addEventListener('click', onInventoryFireballClick);
 }
 
-
-
-function showSetup() {
-
-  var wizards = [];
-  var wizardsCount = 4;
-
-  wizards = getSimilarWizards(wizardsCount);
+function setInventoryVariables() {
 
   inventory = document.querySelector('div.overlay.setup.hidden');
   inventorySetupOpen = document.querySelector('div.setup-open');
@@ -255,6 +248,16 @@ function showSetup() {
   inventoryWizardCoat = inventory.querySelector('.setup-wizard .wizard-coat');
   inventoryWizardEye = inventory.querySelector('.setup-wizard .wizard-eyes');
   inventoryFireball = inventory.querySelector('.setup-fireball-wrap');
+}
+
+function showSetup() {
+
+  var wizards = [];
+  var wizardsCount = 4;
+
+  setInventoryVariables();
+
+  wizards = getSimilarWizards(wizardsCount);
 
   var similarArea = inventory.querySelector('.setup-similar');
   var similarList = similarArea.querySelector('.setup-similar-list');
