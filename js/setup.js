@@ -159,31 +159,31 @@ function setWizardFireballColor(color) {
   inventoryFireball.style.background = color;
 }
 
-var onSetupOpenClick = function() {
+var onSetupOpenClick = function () {
 
   openInventory();
 };
 
-var onSetupCloseClick = function() {
+var onSetupCloseClick = function () {
 
   closeInventory();
 };
 
-var onSetupOpenKeyDown = function(evt) {
+var onSetupOpenKeyDown = function (evt) {
 
   if (evt.keyCode === ENTER_KEYCODE) {
     openInventory();
   }
 };
 
-var onSetupCloseKeyDown = function(evt) {
+var onSetupCloseKeyDown = function (evt) {
 
   if (evt.keyCode === ENTER_KEYCODE) {
     closeInventory();
   }
 };
 
-var onInventoryKeyDown = function(evt) {
+var onInventoryKeyDown = function (evt) {
 
   if (evt.target === inventorySetupInputUserName) {
     return;
@@ -196,7 +196,7 @@ var onInventoryKeyDown = function(evt) {
 
 var onInventorySaveButtonClick = function () {
 
-    closeInventory();
+  closeInventory();
 };
 
 var onInventorySaveButtonKeyDown = function (evt) {
@@ -206,17 +206,17 @@ var onInventorySaveButtonKeyDown = function (evt) {
   }
 };
 
-var onInventoryCoatClick = function() {
+var onInventoryCoatClick = function () {
 
   setWizardCoatColor(getRandomArrayElement(WIZARD_COAT_COLORS));
 };
 
-var onInventoryEyeClick = function() {
+var onInventoryEyeClick = function () {
 
   setWizardEyeColor(getRandomArrayElement(WIZARD_EYE_COLORS));
 };
 
-var onInventoryFireballClick = function() {
+var onInventoryFireballClick = function () {
 
   setWizardFireballColor(getRandomArrayElement(FIRE_BALL_COLORS));
 };
