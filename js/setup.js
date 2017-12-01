@@ -39,6 +39,26 @@ var WIZARD_EYE_COLORS = [
   'green'
 ];
 
+var FIRE_BALL_COLORS = [
+  '#ee4830',
+  '#30a8ee',
+  '#5ce6c0',
+  '#e848d5',
+  '#e6e848'
+];
+
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+var inventory;
+var inventorySetupOpen;
+var inventorySetupClose;
+var inventorySetupInputUserName;
+var inventorySaveButton;
+var inventoryWizardCoat;
+var inventoryWizardEye;
+var inventoryFireball;
+
 function generateRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -104,14 +124,140 @@ function getWizardsFragment(wizards, similarWizardTemplate) {
   return fragment;
 }
 
+function openInventory() {
+
+  if (typeof inventory === 'undefined') {
+    return;
+  }
+
+  inventory.classList.remove('hidden');
+  document.addEventListener('keydown', onInventoryKeyDown);
+}
+
+function closeInventory() {
+
+  if (typeof inventory === 'undefined') {
+    return;
+  }
+
+  inventory.classList.add('hidden');
+  document.removeEventListener('keydown', onInventoryKeyDown);
+}
+
+function setWizardCoatColor(color) {
+
+  inventoryWizardCoat.style.fill = color;
+}
+
+function setWizardEyeColor(color) {
+
+  inventoryWizardEye.style.fill = color;
+}
+
+function setWizardFireballColor(color) {
+
+  inventoryFireball.style.background = color;
+}
+
+function onSetupOpenClick() {
+
+  openInventory();
+}
+
+function onSetupCloseClick() {
+
+  closeInventory();
+}
+
+function onSetupOpenKeyDown(evt) {
+
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openInventory();
+  }
+}
+
+function onSetupCloseKeyDown(evt) {
+
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closeInventory();
+  }
+}
+
+function onInventoryKeyDown(evt) {
+
+  if (evt.target === inventorySetupInputUserName) {
+    return;
+  }
+
+  if (evt.keyCode === ESC_KEYCODE) {
+    closeInventory();
+  }
+}
+
+function onInventorySaveButtonClick() {
+
+  closeInventory();
+}
+
+function onInventorySaveButtonKeyDown(evt) {
+
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closeInventory();
+  }
+}
+
+function onInventoryCoatClick() {
+
+  setWizardCoatColor(getRandomArrayElement(WIZARD_COAT_COLORS));
+}
+
+function onInventoryEyeClick() {
+
+  setWizardEyeColor(getRandomArrayElement(WIZARD_EYE_COLORS));
+}
+
+function onInventoryFireballClick() {
+
+  setWizardFireballColor(getRandomArrayElement(FIRE_BALL_COLORS));
+}
+
+function setListeners() {
+
+  inventorySetupOpen.addEventListener('click', onSetupOpenClick);
+  inventorySetupOpen.addEventListener('keydown', onSetupOpenKeyDown);
+
+  inventorySetupClose.addEventListener('click', onSetupCloseClick);
+  inventorySetupClose.addEventListener('keydown', onSetupCloseKeyDown);
+
+  inventorySaveButton.addEventListener('click', onInventorySaveButtonClick);
+  inventorySaveButton.addEventListener('keydown', onInventorySaveButtonKeyDown);
+
+  inventoryWizardCoat.addEventListener('click', onInventoryCoatClick);
+  inventoryWizardEye.addEventListener('click', onInventoryEyeClick);
+  inventoryFireball.addEventListener('click', onInventoryFireballClick);
+}
+
+function setInventoryVariables() {
+
+  inventory = document.querySelector('div.overlay.setup.hidden');
+  inventorySetupOpen = document.querySelector('div.setup-open');
+  inventorySetupClose = inventory.querySelector('.setup-close');
+  inventorySetupInputUserName = inventory.querySelector('.setup-user-name');
+  inventorySaveButton = inventory.querySelector('.setup-submit');
+  inventoryWizardCoat = inventory.querySelector('.setup-wizard .wizard-coat');
+  inventoryWizardEye = inventory.querySelector('.setup-wizard .wizard-eyes');
+  inventoryFireball = inventory.querySelector('.setup-fireball-wrap');
+}
+
 function showSetup() {
 
   var wizards = [];
   var wizardsCount = 4;
 
+  setInventoryVariables();
+
   wizards = getSimilarWizards(wizardsCount);
 
-  var inventory = document.querySelector('div.overlay.setup.hidden');
   var similarArea = inventory.querySelector('.setup-similar');
   var similarList = similarArea.querySelector('.setup-similar-list');
 
@@ -120,8 +266,8 @@ function showSetup() {
   var fragment = getWizardsFragment(wizards, similarWizardTemplate);
 
   similarList.appendChild(fragment);
-  inventory.classList.remove('hidden');
-  similarArea.classList.remove('hidden');
+
+  setListeners();
 }
 
 showSetup();
