@@ -162,26 +162,26 @@ function setWizardFireballColor(color) {
 function onSetupOpenClick() {
 
   openInventory();
-};
+}
 
 function onSetupCloseClick() {
 
   closeInventory();
-};
+}
 
 function onSetupOpenKeyDown(evt) {
 
   if (evt.keyCode === ENTER_KEYCODE) {
     openInventory();
   }
-};
+}
 
 function onSetupCloseKeyDown(evt) {
 
   if (evt.keyCode === ENTER_KEYCODE) {
     closeInventory();
   }
-};
+}
 
 function onInventoryKeyDown(evt) {
 
@@ -192,34 +192,34 @@ function onInventoryKeyDown(evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     closeInventory();
   }
-};
+}
 
 function onInventorySaveButtonClick() {
 
   closeInventory();
-};
+}
 
 function onInventorySaveButtonKeyDown(evt) {
 
   if (evt.keyCode === ENTER_KEYCODE) {
     closeInventory();
   }
-};
+}
 
 function onInventoryCoatClick() {
 
   setWizardCoatColor(getRandomArrayElement(WIZARD_COAT_COLORS));
-};
+}
 
 function onInventoryEyeClick() {
 
   setWizardEyeColor(getRandomArrayElement(WIZARD_EYE_COLORS));
-};
+}
 
 function onInventoryFireballClick() {
 
   setWizardFireballColor(getRandomArrayElement(FIRE_BALL_COLORS));
-};
+}
 
 function setListeners() {
 
