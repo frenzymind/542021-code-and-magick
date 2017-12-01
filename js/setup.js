@@ -159,31 +159,31 @@ function setWizardFireballColor(color) {
   inventoryFireball.style.background = color;
 }
 
-var onSetupOpenClick = function () {
+function onSetupOpenClick() {
 
   openInventory();
 };
 
-var onSetupCloseClick = function () {
+function onSetupCloseClick() {
 
   closeInventory();
 };
 
-var onSetupOpenKeyDown = function (evt) {
+function onSetupOpenKeyDown(evt) {
 
   if (evt.keyCode === ENTER_KEYCODE) {
     openInventory();
   }
 };
 
-var onSetupCloseKeyDown = function (evt) {
+function onSetupCloseKeyDown(evt) {
 
   if (evt.keyCode === ENTER_KEYCODE) {
     closeInventory();
   }
 };
 
-var onInventoryKeyDown = function (evt) {
+function onInventoryKeyDown(evt) {
 
   if (evt.target === inventorySetupInputUserName) {
     return;
@@ -194,29 +194,29 @@ var onInventoryKeyDown = function (evt) {
   }
 };
 
-var onInventorySaveButtonClick = function () {
+function onInventorySaveButtonClick() {
 
   closeInventory();
 };
 
-var onInventorySaveButtonKeyDown = function (evt) {
+function onInventorySaveButtonKeyDown(evt) {
 
   if (evt.keyCode === ENTER_KEYCODE) {
     closeInventory();
   }
 };
 
-var onInventoryCoatClick = function () {
+function onInventoryCoatClick() {
 
   setWizardCoatColor(getRandomArrayElement(WIZARD_COAT_COLORS));
 };
 
-var onInventoryEyeClick = function () {
+function onInventoryEyeClick() {
 
   setWizardEyeColor(getRandomArrayElement(WIZARD_EYE_COLORS));
 };
 
-var onInventoryFireballClick = function () {
+function onInventoryFireballClick() {
 
   setWizardFireballColor(getRandomArrayElement(FIRE_BALL_COLORS));
 };
@@ -266,8 +266,6 @@ function showSetup() {
   var fragment = getWizardsFragment(wizards, similarWizardTemplate);
 
   similarList.appendChild(fragment);
-  //  inventory.classList.remove('hidden');
-  //  similarArea.classList.remove('hidden');
 
   setListeners();
 }
