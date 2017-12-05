@@ -235,7 +235,7 @@
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
-      /*var shift = {
+      var shift = {
         x: startCoords.x - moveEvt.clientX,
         y: startCoords.y - moveEvt.clientY
       };
@@ -243,11 +243,11 @@
       startCoords = {
         x: moveEvt.clientX,
         y: moveEvt.clientY
-      };*/
-console.log(moveEvt.pageX + " / " + moveEvt.pageY);
+      };
 
-      inventory.style.top = (moveEvt.pageY) + 'px';
-      inventory.style.left = (moveEvt.pageX) + 'px';
+
+      inventory.style.top = (inventory.offsetTop - shift.y) + 'px';
+      inventory.style.left = (inventory.offsetLeft - shift.x) + 'px';
     };
 
     var onMouseUp = function (upEvt) {
