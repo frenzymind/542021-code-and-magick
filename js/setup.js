@@ -59,6 +59,7 @@
   var inventoryWizardCoat;
   var inventoryWizardEye;
   var inventoryFireball;
+  var dialogHandle;
 
   function generateRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -222,6 +223,44 @@
     setWizardFireballColor(getRandomArrayElement(FIRE_BALL_COLORS));
   }
 
+  function onDialogHandleMousedown(evt) {
+
+    evt.preventDefault();
+
+    var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+    };
+
+    var onMouseMove = function (moveEvt) {
+      moveEvt.preventDefault();
+
+      /*var shift = {
+        x: startCoords.x - moveEvt.clientX,
+        y: startCoords.y - moveEvt.clientY
+      };
+
+      startCoords = {
+        x: moveEvt.clientX,
+        y: moveEvt.clientY
+      };*/
+console.log(moveEvt.pageX + " / " + moveEvt.pageY);
+
+      inventory.style.top = (moveEvt.pageY) + 'px';
+      inventory.style.left = (moveEvt.pageX) + 'px';
+    };
+
+    var onMouseUp = function (upEvt) {
+      upEvt.preventDefault();
+
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  }
+
   function setListeners() {
 
     inventorySetupOpen.addEventListener('click', onSetupOpenClick);
@@ -236,6 +275,9 @@
     inventoryWizardCoat.addEventListener('click', onInventoryCoatClick);
     inventoryWizardEye.addEventListener('click', onInventoryEyeClick);
     inventoryFireball.addEventListener('click', onInventoryFireballClick);
+
+
+    dialogHandle.addEventListener('mousedown', onDialogHandleMousedown);
   }
 
   function setInventoryVariables() {
@@ -248,6 +290,8 @@
     inventoryWizardCoat = inventory.querySelector('.setup-wizard .wizard-coat');
     inventoryWizardEye = inventory.querySelector('.setup-wizard .wizard-eyes');
     inventoryFireball = inventory.querySelector('.setup-fireball-wrap');
+    dialogHandle = inventory.querySelector('.setup-user-pic');
+        dialogHandle.style.zIndex = 1000;
   }
 
   function showSetup() {
