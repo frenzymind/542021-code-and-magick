@@ -51,7 +51,7 @@
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
 
-  var inventory;
+  window.inventory;
   var inventorySetupOpen;
   var inventorySetupClose;
   var inventorySetupInputUserName;
@@ -223,44 +223,6 @@
     setWizardFireballColor(getRandomArrayElement(FIRE_BALL_COLORS));
   }
 
-  function onDialogHandleMousedown(evt) {
-
-    evt.preventDefault();
-
-    var startCoords = {
-    x: evt.clientX,
-    y: evt.clientY
-    };
-
-    var onMouseMove = function (moveEvt) {
-      moveEvt.preventDefault();
-
-      var shift = {
-        x: startCoords.x - moveEvt.clientX,
-        y: startCoords.y - moveEvt.clientY
-      };
-
-      startCoords = {
-        x: moveEvt.clientX,
-        y: moveEvt.clientY
-      };
-
-
-      inventory.style.top = (inventory.offsetTop - shift.y) + 'px';
-      inventory.style.left = (inventory.offsetLeft - shift.x) + 'px';
-    };
-
-    var onMouseUp = function (upEvt) {
-      upEvt.preventDefault();
-
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  }
-
   function setListeners() {
 
     inventorySetupOpen.addEventListener('click', onSetupOpenClick);
@@ -276,13 +238,12 @@
     inventoryWizardEye.addEventListener('click', onInventoryEyeClick);
     inventoryFireball.addEventListener('click', onInventoryFireballClick);
 
-
-    dialogHandle.addEventListener('mousedown', onDialogHandleMousedown);
+    dialogHandle.addEventListener('mousedown', window.onDragDialog);
   }
 
   function setInventoryVariables() {
 
-    inventory = document.querySelector('div.overlay.setup.hidden');
+    window.inventory = document.querySelector('div.overlay.setup.hidden');
     inventorySetupOpen = document.querySelector('div.setup-open');
     inventorySetupClose = inventory.querySelector('.setup-close');
     inventorySetupInputUserName = inventory.querySelector('.setup-user-name');
@@ -291,7 +252,7 @@
     inventoryWizardEye = inventory.querySelector('.setup-wizard .wizard-eyes');
     inventoryFireball = inventory.querySelector('.setup-fireball-wrap');
     dialogHandle = inventory.querySelector('.setup-user-pic');
-        dialogHandle.style.zIndex = 1000;
+    dialogHandle.style.zIndex = 1000;
   }
 
   function showSetup() {
