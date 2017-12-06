@@ -243,7 +243,7 @@ window.setup = (function () {
 
     dialogHandle.addEventListener('mousedown', window.onDragDialog);
 
-    shopElement.addEventListener('dragstart', onArtifactDragstart(evt));
+    shopElement.addEventListener('dragstart', onArtifactDragstart);
     artifactsElement.addEventListener('dragover', onArtifactDragover);
   }
 
