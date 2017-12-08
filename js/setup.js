@@ -50,6 +50,7 @@ window.setup = (function () {
 
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
+  var DRAG_AVAILABLE_BORDER_STYLE_AREA = 'outline: 2px dashed red';
 
   var inventory;
   var inventorySetupOpen;
@@ -63,6 +64,7 @@ window.setup = (function () {
 
   var shopElement;
   var artifactsElement;
+  var draggedItem = null;
 
   function generateRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -245,6 +247,9 @@ window.setup = (function () {
 
     shopElement.addEventListener('dragstart', onArtifactDragstart);
     artifactsElement.addEventListener('dragover', onArtifactDragover);
+    artifactsElement.addEventListener('drop', onArtifactDrop);
+    artifactsElement.addEventListener('dragenter', onArtifactDragEnter);
+    artifactsElement.addEventListener('dragleave', onArtifactDragLeave);
   }
 
   function setInventoryVariables() {
@@ -270,6 +275,25 @@ window.setup = (function () {
       draggedItem = evt.target;
       evt.dataTransfer.setData('text/plain', evt.target.alt);
     }
+  }
+
+  function onArtifactDrop(evt) {
+
+    evt.target.style.backgroundColor = '';
+    evt.target.appendChild(draggedItem);
+    evt.preventDefault();
+  }
+
+  function onArtifactDragEnter(evt) {
+
+    evt.target.style.backgroundColor = 'yellow';
+    evt.preventDefault();
+  }
+
+  function onArtifactDragLeave(evt) {
+
+    evt.target.style.backgroundColor = '';
+    evt.preventDefault();
   }
 
   function onArtifactDragover(evt) {
