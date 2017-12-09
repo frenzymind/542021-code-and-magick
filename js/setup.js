@@ -50,7 +50,7 @@ window.setup = (function () {
 
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
-  var DRAG_AVAILABLE_BORDER_STYLE_AREA = 'outline: 2px dashed red';
+  var DRAG_AVAILABLE_BORDER_STYLE_AREA = '2px dashed red';
 
   var inventory;
   var inventorySetupOpen;
@@ -65,6 +65,7 @@ window.setup = (function () {
   var shopElement;
   var artifactsElement;
   var draggedItem = null;
+  var dropZone;
 
   function generateRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -246,10 +247,14 @@ window.setup = (function () {
     dialogHandle.addEventListener('mousedown', window.onDragDialog);
 
     shopElement.addEventListener('dragstart', onArtifactDragstart);
+    shopElement.addEventListener('dragend', onArtifactDragend);
+
+    artifactsElement.addEventListener('dragstart', onArtifactDragstart);
     artifactsElement.addEventListener('dragover', onArtifactDragover);
     artifactsElement.addEventListener('drop', onArtifactDrop);
     artifactsElement.addEventListener('dragenter', onArtifactDragEnter);
     artifactsElement.addEventListener('dragleave', onArtifactDragLeave);
+    artifactsElement.addEventListener('dragend', onArtifactDragend);
   }
 
   function setInventoryVariables() {
@@ -266,21 +271,31 @@ window.setup = (function () {
     dialogHandle.style.zIndex = 1000;
     shopElement = document.querySelector('.setup-artifacts-shop');
     artifactsElement = document.querySelector('.setup-artifacts');
-
+    dropZone = artifactsElement.querySelectorAll('div.setup-artifacts-cell');
   }
 
   function onArtifactDragstart(evt) {
 
     if (evt.target.tagName.toLowerCase() === 'img') {
-      draggedItem = evt.target;
+
+     (evt.currentTarget.classList.contains('setup-artifacts-shop')) ? draggedItem = evt.target.cloneNode() : draggedItem = evt.target;
+
       evt.dataTransfer.setData('text/plain', evt.target.alt);
+      showDragZone(true);
     }
   }
 
   function onArtifactDrop(evt) {
 
     evt.target.style.backgroundColor = '';
-    evt.target.appendChild(draggedItem);
+    var neededTarget = evt.target.closest('div.setup-artifacts-cell');
+
+    if (neededTarget.children.length === 0) {
+      neededTarget.appendChild(draggedItem);
+    } else {
+      alert('Место занято');
+    }
+
     evt.preventDefault();
   }
 
@@ -300,6 +315,21 @@ window.setup = (function () {
 
     evt.preventDefault();
     return false;
+  }
+
+  function onArtifactDragend(evt) {
+
+    evt.preventDefault();
+    showDragZone(false);
+    return false;
+  }
+
+  function showDragZone(isDrop) {
+
+    for (var i = 0; i < dropZone.length; i++) {
+
+      (isDrop) ? dropZone[i].style.outline = DRAG_AVAILABLE_BORDER_STYLE_AREA : dropZone[i].style.outline = '';
+    }
   }
 
   function showSetup() {
