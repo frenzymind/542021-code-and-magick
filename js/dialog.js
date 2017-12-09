@@ -26,16 +26,16 @@
 
       window.setup.inventory.style.top = (window.setup.inventory.offsetTop - shift.y) + 'px';
       window.setup.inventory.style.left = (window.setup.inventory.offsetLeft - shift.x) + 'px';
-    };
+    }
 
     function onMouseUp(upEvt) {
       upEvt.preventDefault();
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
-    };
+    }
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  }
+  };
 })();
