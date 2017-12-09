@@ -331,7 +331,7 @@ window.setup = (function () {
     for (var i = 0; i < dropZone.length; i++) {
 
       if (isDrop === true) {
-        dropZone[i].style.outline = DRAG_AVAILABLE_BORDER_STYLE_AREA
+        dropZone[i].style.outline = DRAG_AVAILABLE_BORDER_STYLE_AREA;
       } else {
         dropZone[i].style.outline = '';
       }
