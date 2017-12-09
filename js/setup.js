@@ -278,7 +278,11 @@ window.setup = (function () {
 
     if (evt.target.tagName.toLowerCase() === 'img') {
 
-      (evt.currentTarget.classList.contains('setup-artifacts-shop') === true) ? draggedItem = evt.target.cloneNode() : draggedItem = evt.target;
+      if (evt.currentTarget.classList.contains('setup-artifacts-shop') === true) {
+        draggedItem = evt.target.cloneNode();
+      } else {
+        draggedItem = evt.target;
+      }
 
       evt.dataTransfer.setData('text/plain', evt.target.alt);
       showDragZone(true);
@@ -292,8 +296,6 @@ window.setup = (function () {
 
     if (neededTarget.children.length === 0) {
       neededTarget.appendChild(draggedItem);
-    } else {
-      showMessage('Место занято');
     }
 
     evt.preventDefault();
@@ -324,16 +326,16 @@ window.setup = (function () {
     return false;
   }
 
-  function showMessage(messageText) {
-
-    alert(messageText);
-  }
-
   function showDragZone(isDrop) {
 
     for (var i = 0; i < dropZone.length; i++) {
 
-      (isDrop === true) ? dropZone[i].style.outline = DRAG_AVAILABLE_BORDER_STYLE_AREA : dropZone[i].style.outline = '';
+      if (isDrop === true) {
+        dropZone[i].style.outline = DRAG_AVAILABLE_BORDER_STYLE_AREA
+      } else {
+        dropZone[i].style.outline = '';
+      }
+
     }
   }
 
