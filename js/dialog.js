@@ -2,12 +2,12 @@
 
 window.dialog = (function () {
 
-   var inventory = document.querySelector('div.overlay.setup.hidden');
-   var dialogHandle = inventory.querySelector('.setup-user-pic');
+  var inventory = document.querySelector('div.overlay.setup.hidden');
+  var dialogHandle = inventory.querySelector('.setup-user-pic');
 
-   dialogHandle.style.zIndex = 1000;
+  dialogHandle.style.zIndex = 1000;
 
-   function onDialogHandleMousedown(evt) {
+  function onDialogHandleMousedown(evt) {
 
     evt.preventDefault();
 
@@ -42,7 +42,7 @@ window.dialog = (function () {
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  };
+  }
 
   function init() {
 
