@@ -1,8 +1,13 @@
 'use strict';
 
-(function () {
+window.dialog = (function () {
 
-  window.onDragDialog = function onDialogHandleMousedown(evt) {
+   var inventory = document.querySelector('div.overlay.setup.hidden');
+   var dialogHandle = inventory.querySelector('.setup-user-pic');
+
+   dialogHandle.style.zIndex = 1000;
+
+   function onDialogHandleMousedown(evt) {
 
     evt.preventDefault();
 
@@ -24,8 +29,8 @@
         y: moveEvt.clientY
       };
 
-      window.setup.inventory.style.top = (window.setup.inventory.offsetTop - shift.y) + 'px';
-      window.setup.inventory.style.left = (window.setup.inventory.offsetLeft - shift.x) + 'px';
+      inventory.style.top = (inventory.offsetTop - shift.y) + 'px';
+      inventory.style.left = (inventory.offsetLeft - shift.x) + 'px';
     }
 
     function onMouseUp(upEvt) {
@@ -38,4 +43,12 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
+
+  function init() {
+
+    dialogHandle.addEventListener('mousedown', onDialogHandleMousedown);
+  }
+
+  init();
+
 })();

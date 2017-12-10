@@ -1,4 +1,5 @@
 'use strict';
+
 window.setup = (function () {
 
   var WIZARD_NAMES = [
@@ -60,7 +61,6 @@ window.setup = (function () {
   var inventoryWizardCoat;
   var inventoryWizardEye;
   var inventoryFireball;
-  var dialogHandle;
 
   var shopElement;
   var artifactsElement;
@@ -244,8 +244,6 @@ window.setup = (function () {
     inventoryWizardEye.addEventListener('click', onInventoryEyeClick);
     inventoryFireball.addEventListener('click', onInventoryFireballClick);
 
-    dialogHandle.addEventListener('mousedown', window.onDragDialog);
-
     shopElement.addEventListener('dragstart', onArtifactDragstart);
     shopElement.addEventListener('dragend', onArtifactDragend);
 
@@ -267,8 +265,7 @@ window.setup = (function () {
     inventoryWizardCoat = inventory.querySelector('.setup-wizard .wizard-coat');
     inventoryWizardEye = inventory.querySelector('.setup-wizard .wizard-eyes');
     inventoryFireball = inventory.querySelector('.setup-fireball-wrap');
-    dialogHandle = inventory.querySelector('.setup-user-pic');
-    dialogHandle.style.zIndex = 1000;
+
     shopElement = document.querySelector('.setup-artifacts-shop');
     artifactsElement = document.querySelector('.setup-artifacts');
     dropZone = artifactsElement.querySelectorAll('div.setup-artifacts-cell');
@@ -278,7 +275,7 @@ window.setup = (function () {
 
     if (evt.target.tagName.toLowerCase() === 'img') {
 
-      if (evt.currentTarget.classList.contains('setup-artifacts-shop') === true) {
+      if (evt.currentTarget.classList.contains('setup-artifacts-shop')) {
         draggedItem = evt.target.cloneNode();
       } else {
         draggedItem = evt.target;
@@ -330,7 +327,7 @@ window.setup = (function () {
 
     for (var i = 0; i < dropZone.length; i++) {
 
-      if (isDrop === true) {
+      if (isDrop) {
         dropZone[i].style.outline = DRAG_AVAILABLE_BORDER_STYLE_AREA;
       } else {
         dropZone[i].style.outline = '';
@@ -362,7 +359,4 @@ window.setup = (function () {
 
   showSetup();
 
-  return {
-    inventory: inventory
-  };
 })();
