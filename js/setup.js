@@ -67,11 +67,15 @@ window.setup = (function () {
   var draggedItem = null;
   var dropZone;
 
+  var similarArea;
+  var similarList;
+  var similarWizardTemplate;
+
   function generateRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
-  function generateWizard() {
+  /*function generateWizard() {
 
     var wizard = {};
 
@@ -83,15 +87,15 @@ window.setup = (function () {
     wizard.eyesColor = getRandomArrayElement(WIZARD_EYE_COLORS);
 
     return wizard;
-  }
+  }*/
 
   function renderWizard(wizard, template) {
 
     var wizardElement = template.cloneNode(true);
 
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
 
     return wizardElement;
   }
@@ -106,7 +110,7 @@ window.setup = (function () {
     return array[randomId];
   }
 
-  function getSimilarWizards(count) {
+  /*function getSimilarWizards(count) {
 
     var wizards = [];
 
@@ -117,13 +121,13 @@ window.setup = (function () {
     }
 
     return wizards;
-  }
+  }*/
 
-  function getWizardsFragment(wizards, similarWizardTemplate) {
+  function getWizardsFragment(wizards, similarWizardTemplate, count) {
 
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < wizards.length; i++) {
+    for (var i = 0; i < count; i++) {
 
       fragment.appendChild(renderWizard(wizards[i], similarWizardTemplate));
 
@@ -140,6 +144,7 @@ window.setup = (function () {
 
     inventory.classList.remove('hidden');
     document.addEventListener('keydown', onInventoryKeyDown);
+    window.backend.load(onLoadWizardsServer, onErrorWizardsLoadServer);
   }
 
   function closeInventory() {
@@ -149,6 +154,7 @@ window.setup = (function () {
     }
 
     inventory.classList.add('hidden');
+    clearAllChilds(similarList);
     document.removeEventListener('keydown', onInventoryKeyDown);
   }
 
@@ -198,9 +204,13 @@ window.setup = (function () {
     }
   }
 
-  function onInventorySaveButtonClick() {
+  function onInventorySaveButtonClick(evt) {
 
-    closeInventory();
+    evt.preventDefault();
+
+    var formData = new FormData(inventory.querySelector('form.setup-wizard-form'));
+
+    window.backend.save(formData, onSaveWizardsServer, onSaveWizardsErrorServer);
   }
 
   function onInventorySaveButtonKeyDown(evt) {
@@ -223,6 +233,23 @@ window.setup = (function () {
   function onInventoryFireballClick() {
 
     window.colorizeElement.colorizeElement(inventoryFireball, FIRE_BALL_COLORS, changeElementBackground);
+  }
+
+  function onSaveWizardsServer() {
+
+    closeInventory();
+  }
+
+  function onSaveWizardsErrorServer() {
+
+
+  }
+
+  function clearAllChilds(elem) {
+
+    while (elem.hasChildNodes()) {
+      elem.removeChild(elem.lastChild);
+    }
   }
 
   function setListeners() {
@@ -265,6 +292,10 @@ window.setup = (function () {
     shopElement = document.querySelector('.setup-artifacts-shop');
     artifactsElement = document.querySelector('.setup-artifacts');
     dropZone = artifactsElement.querySelectorAll('div.setup-artifacts-cell');
+
+    similarArea = inventory.querySelector('.setup-similar');
+    similarList = similarArea.querySelector('.setup-similar-list');
+    similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
   }
 
   function onArtifactDragstart(evt) {
@@ -332,25 +363,31 @@ window.setup = (function () {
     }
   }
 
-  function showSetup() {
+  function onLoadWizardsServer(wizards) {
 
-    var wizards = [];
     var wizardsCount = 4;
+    var fragment;
 
-    setInventoryVariables();
-
-    wizards = getSimilarWizards(wizardsCount);
-
-    var similarArea = inventory.querySelector('.setup-similar');
-    var similarList = similarArea.querySelector('.setup-similar-list');
-
-    var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-
-    var fragment = getWizardsFragment(wizards, similarWizardTemplate);
+    fragment = getWizardsFragment(wizards, similarWizardTemplate, wizardsCount);
 
     similarList.appendChild(fragment);
 
+    similarArea.classList.remove('hidden');
+
+    //debugger;
+  }
+
+  function onErrorWizardsLoadServer(msg) {
+
+    //debugger;
+  }
+
+  function showSetup() {
+
+    setInventoryVariables();
+
     setListeners();
+
   }
 
   showSetup();
