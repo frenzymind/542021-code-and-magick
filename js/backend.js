@@ -14,15 +14,11 @@ window.backend = (function () {
 
       xhr.addEventListener('load', function () {
 
-        switch (xhr.status) {
-
-          case 200:
-            onLoad(xhr.response);
-            break;
-
-          default:
-            onError('Неизвестный статус: ' + xhr.status + ' ' + xhr.statusText);
-        }
+      if (xhr.status === 200) {
+        onLoad(xhr.response);
+      } else {
+        onError('Неизвестный статус: ' + xhr.status + ' ' + xhr.statusText);
+      }
 
       });
 
@@ -43,15 +39,11 @@ window.backend = (function () {
 
       xhr.addEventListener('load', function () {
 
-        switch (xhr.status) {
-
-          case 200:
-            onLoad();
-            break;
-
-          default:
-            onError('Неизвестный статус: ' + xhr.status + ' ' + xhr.statusText);
-        }
+      if (xhr.status === 200) {
+        onLoad();
+      } else {
+        onError('Неизвестный статус: ' + xhr.status + ' ' + xhr.statusText);
+      }
 
       });
 
