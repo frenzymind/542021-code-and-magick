@@ -52,6 +52,7 @@ window.setup = (function () {
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
   var DRAG_AVAILABLE_BORDER_STYLE_AREA = '2px dashed red';
+  var ERROR_CLASS = 'error';
 
   var inventory;
   var inventorySetupOpen;
@@ -75,20 +76,6 @@ window.setup = (function () {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
-  /*function generateWizard() {
-
-    var wizard = {};
-
-    var randomId = generateRandomInt(0, WIZARD_NAMES.length);
-    wizard.name = WIZARD_NAMES[randomId] + ' ' + WIZARD_LAST_NAMES[randomId];
-
-    wizard.coatColor = getRandomArrayElement(WIZARD_COAT_COLORS);
-
-    wizard.eyesColor = getRandomArrayElement(WIZARD_EYE_COLORS);
-
-    return wizard;
-  }*/
-
   function renderWizard(wizard, template) {
 
     var wizardElement = template.cloneNode(true);
@@ -109,19 +96,6 @@ window.setup = (function () {
 
     return array[randomId];
   }
-
-  /*function getSimilarWizards(count) {
-
-    var wizards = [];
-
-    for (var i = 0; i < count; i++) {
-
-      wizards[i] = generateWizard();
-
-    }
-
-    return wizards;
-  }*/
 
   function getWizardsFragment(wizards, similarWizardTemplate, count) {
 
@@ -237,11 +211,38 @@ window.setup = (function () {
 
   function onSaveWizardsServer() {
 
+    clearError();
     closeInventory();
   }
 
-  function onSaveWizardsErrorServer() {
+  function onSaveWizardsErrorServer(msg) {
 
+    showErrorMessage(msg);
+  }
+
+  function showErrorMessage(errorMessage) {
+
+    clearError();
+
+    var node = document.createElement('div');
+    node.classList.add(ERROR_CLASS);
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  }
+
+  function clearError() {
+
+    var errorDiv = document.body.querySelector('div:nth-of-type(1)');
+
+    if (errorDiv.classList.contains(ERROR_CLASS)) {
+      document.body.removeChild(errorDiv);
+    }
 
   }
 
@@ -368,18 +369,19 @@ window.setup = (function () {
     var wizardsCount = 4;
     var fragment;
 
+    clearError();
+
     fragment = getWizardsFragment(wizards, similarWizardTemplate, wizardsCount);
 
     similarList.appendChild(fragment);
 
     similarArea.classList.remove('hidden');
 
-    //debugger;
   }
 
   function onErrorWizardsLoadServer(msg) {
 
-    //debugger;
+    showErrorMessage(msg);
   }
 
   function showSetup() {
