@@ -2,28 +2,6 @@
 
 window.setup = (function () {
 
-  var WIZARD_NAMES = [
-    'Иван',
-    'Хуан Себастьян',
-    'Мария',
-    'Кристоф',
-    'Виктор',
-    'Юлия',
-    'Люпита',
-    'Вашингтон'
-  ];
-
-  var WIZARD_LAST_NAMES = [
-    'да Марья',
-    'Верон',
-    'Мирабелла',
-    'Вальц',
-    'Онопко',
-    'Топольницкая',
-    'Нионго',
-    'Ирвинг'
-  ];
-
   var WIZARD_COAT_COLORS = [
     'rgb(101, 137, 164)',
     'rgb(241, 43, 107)',
@@ -97,13 +75,33 @@ window.setup = (function () {
     return array[randomId];
   }
 
-  function getWizardsFragment(wizards, similarWizardTemplate, count) {
+  function getRandomUniqueArray(array, count) {
+
+    var copyArray = [];
+    var uniqueArray = [];
+
+    for (var i = 0; i < array.length; i++) {
+      copyArray[i] = array[i];
+    }
+
+    for (i = 0; i < count; i++) {
+
+      uniqueArray[i] = getRandomArrayElement(copyArray);
+      copyArray.splice(copyArray.indexOf(uniqueArray[i]), 1);
+    }
+
+    return uniqueArray;
+  }
+
+  function getWizardsFragment(wizards, count) {
 
     var fragment = document.createDocumentFragment();
 
+    var randomWizards = getRandomUniqueArray(wizards, count);
+
     for (var i = 0; i < count; i++) {
 
-      fragment.appendChild(renderWizard(wizards[i], similarWizardTemplate));
+      fragment.appendChild(renderWizard(randomWizards[i], similarWizardTemplate));
 
     }
 
@@ -360,7 +358,6 @@ window.setup = (function () {
       } else {
         dropZone[i].style.outline = '';
       }
-
     }
   }
 
@@ -371,7 +368,7 @@ window.setup = (function () {
 
     clearError();
 
-    fragment = getWizardsFragment(wizards, similarWizardTemplate, wizardsCount);
+    fragment = getWizardsFragment(wizards, wizardsCount);
 
     similarList.appendChild(fragment);
 
