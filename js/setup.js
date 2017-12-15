@@ -152,19 +152,15 @@ window.setup = (function () {
     document.removeEventListener('keydown', onInventoryKeyDown);
   }
 
-  function setWizardCoatColor(color) {
+  function fillElement(elem, color) {
 
-    inventoryWizardCoat.style.fill = color;
+    elem.style.fill = color;
   }
 
-  function setWizardEyeColor(color) {
+  function changeElementBackground(elem, color) {
 
-    inventoryWizardEye.style.fill = color;
-  }
+    elem.style.backgroundColor = color;
 
-  function setWizardFireballColor(color) {
-
-    inventoryFireball.style.background = color;
   }
 
   function onSetupOpenClick() {
@@ -216,17 +212,17 @@ window.setup = (function () {
 
   function onInventoryCoatClick() {
 
-    setWizardCoatColor(getRandomArrayElement(WIZARD_COAT_COLORS));
+    window.colorizeElement.colorizeElement(inventoryWizardCoat, WIZARD_COAT_COLORS, fillElement);
   }
 
   function onInventoryEyeClick() {
 
-    setWizardEyeColor(getRandomArrayElement(WIZARD_EYE_COLORS));
+    window.colorizeElement.colorizeElement(inventoryWizardEye, WIZARD_EYE_COLORS, fillElement);
   }
 
   function onInventoryFireballClick() {
 
-    setWizardFireballColor(getRandomArrayElement(FIRE_BALL_COLORS));
+    window.colorizeElement.colorizeElement(inventoryFireball, FIRE_BALL_COLORS, changeElementBackground);
   }
 
   function setListeners() {
