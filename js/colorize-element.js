@@ -1,6 +1,6 @@
 'use strict';
 
-window.colorizeElement = (function() {
+window.colorizeElement = (function () {
 
   function generateRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -8,7 +8,7 @@ window.colorizeElement = (function() {
 
   return {
 
-    colorizeElement: function(elem, array, callbackFunction) {
+    colorizeElement: function (elem, array, callbackFunction) {
 
       var min = 0;
       var max = array.length;
