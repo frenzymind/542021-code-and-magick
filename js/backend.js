@@ -16,17 +16,17 @@ window.backend = (function () {
 
     xhr.addEventListener('load', function () {
 
-        if (xhr.status === 200) {
-          onLoad(xhr.response);
-        } else {
-          onError('Неизвестный статус: ' + xhr.status + ' ' + xhr.statusText);
-        }
+      if (xhr.status === 200) {
+        onLoad(xhr.response);
+      } else {
+        onError('Неизвестный статус: ' + xhr.status + ' ' + xhr.statusText);
+      }
 
     });
 
     xhr.addEventListener('error', function () {
 
-        onError('Ошибка соединения!');
+      onError('Ошибка соединения!');
 
     });
 
