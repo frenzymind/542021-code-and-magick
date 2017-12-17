@@ -5,7 +5,9 @@ window.backend = (function () {
   var SERVER_GET_DATA_URL = 'https://1510.dump.academy/code-and-magick/data';
   var SERVER_SAVE_DATA_URL = 'https://1510.dump.academy/code-and-magick';
 
-  function makeRequest(url, type, onLoad, onError, data = null) {
+  function makeRequest(url, type, onLoad, onError, data) {
+
+    data = data || null;
 
     var xhr = new XMLHttpRequest();
 
