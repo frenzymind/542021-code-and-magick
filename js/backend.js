@@ -2,18 +2,17 @@
 
 window.backend = (function () {
 
-  return {
+  var SERVER_GET_DATA_URL = 'https://1510.dump.academy/code-and-magick/data';
+  var SERVER_SAVE_DATA_URL = 'https://1510.dump.academy/code-and-magick';
 
-    load: function (onLoad, onError) {
+  function makeRequest(url, type, onLoad, onError, data = null) {
 
-      var SERVER_URL = 'https://1510.dump.academy/code-and-magick/data';
-      var xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
 
-      xhr.responseType = 'json';
+    xhr.responseType = 'json';
+    xhr.open(type, url);
 
-      xhr.open('GET', SERVER_URL);
-
-      xhr.addEventListener('load', function () {
+    xhr.addEventListener('load', function () {
 
         if (xhr.status === 200) {
           onLoad(xhr.response);
@@ -21,41 +20,27 @@ window.backend = (function () {
           onError('Неизвестный статус: ' + xhr.status + ' ' + xhr.statusText);
         }
 
-      });
+    });
 
-      xhr.addEventListener('error', function () {
+    xhr.addEventListener('error', function () {
 
         onError('Ошибка соединения!');
 
-      });
+    });
 
-      xhr.send();
+    xhr.send(data);
+  }
+
+  return {
+
+    load: function (onLoad, onError) {
+
+      makeRequest(SERVER_GET_DATA_URL, 'GET', onLoad, onError);
 
     },
     save: function (data, onLoad, onError) {
 
-      var SERVER_URL = 'https://1510.dump.academy/code-and-magick';
-      var xhr = new XMLHttpRequest();
-
-      xhr.open('POST', SERVER_URL);
-
-      xhr.addEventListener('load', function () {
-
-        if (xhr.status === 200) {
-          onLoad();
-        } else {
-          onError('Неизвестный статус: ' + xhr.status + ' ' + xhr.statusText);
-        }
-
-      });
-
-      xhr.addEventListener('error', function () {
-
-        onError('Ошибка соединения!');
-
-      });
-
-      xhr.send(data);
+      makeRequest(SERVER_SAVE_DATA_URL, 'POST', onLoad, onError, data);
 
     }
   };
