@@ -83,24 +83,6 @@ window.setup = (function () {
     return array[randomId];
   }
 
-  function getRandomUniqueArray(array, count) {
-
-    var copyArray = [];
-    var uniqueArray = [];
-
-    for (var i = 0; i < array.length; i++) {
-      copyArray[i] = array[i];
-    }
-
-    for (i = 0; i < count; i++) {
-
-      uniqueArray[i] = getRandomArrayElement(copyArray);
-      copyArray.splice(copyArray.indexOf(uniqueArray[i]), 1);
-    }
-
-    return uniqueArray;
-  }
-
   function getWizardsFragment(wizards, count) {
 
     var fragment = document.createDocumentFragment();
@@ -111,7 +93,8 @@ window.setup = (function () {
 
       if (rankDiff === 0) {
 
-        rankDiff = wizards.indexOf(left) - wizards.indexOf(right);
+        rankDiff = namesComparator(left.name, right.name);
+
       }
       return rankDiff;
 
