@@ -33,7 +33,7 @@ window.setup = (function () {
   var ERROR_CLASS = 'error';
   var EYE_CLASS = 'wizard-eyes';
   var COAT_CLASS = 'wizard-coat';
-  var DEBOUNCE_TIME_OUT = 1500;
+  var DEBOUNCE_TIME_OUT = 500;
 
   var inventory;
   var inventorySetupOpen;
