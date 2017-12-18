@@ -33,6 +33,7 @@ window.setup = (function () {
   var ERROR_CLASS = 'error';
   var EYE_CLASS = 'wizard-eyes';
   var COAT_CLASS = 'wizard-coat';
+  var DEBOUNCE_TIME_OUT = 1500;
 
   var inventory;
   var inventorySetupOpen;
@@ -55,6 +56,7 @@ window.setup = (function () {
   var similarWizards;
   var currentEyeColor;
   var currentCoatColor;
+  var lastTimeout;
 
   function generateRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -252,13 +254,13 @@ window.setup = (function () {
   function onInventoryCoatClick() {
 
     window.colorizeElement.colorizeElement(inventoryWizardCoat, WIZARD_COAT_COLORS, fillElement);
-    showSimilarWizards();
+    debounceWizardsShow(showSimilarWizards);
   }
 
   function onInventoryEyeClick() {
 
     window.colorizeElement.colorizeElement(inventoryWizardEye, WIZARD_EYE_COLORS, fillElement);
-    showSimilarWizards();
+    debounceWizardsShow(showSimilarWizards);
   }
 
   function onInventoryFireballClick() {
@@ -275,6 +277,15 @@ window.setup = (function () {
   function onSaveWizardsErrorServer(msg) {
 
     showErrorMessage(msg);
+  }
+
+  function debounceWizardsShow(debounceFunc) {
+
+    if (lastTimeout) {
+      window.clearTimeout(lastTimeout);
+    }
+
+    lastTimeout = window.setTimeout(debounceFunc, DEBOUNCE_TIME_OUT);
   }
 
   function showErrorMessage(errorMessage) {
