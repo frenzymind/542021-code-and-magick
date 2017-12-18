@@ -58,10 +58,6 @@ window.setup = (function () {
   var currentCoatColor;
   var lastTimeout;
 
-  function generateRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
-
   function renderWizard(wizard, template) {
 
     var wizardElement = template.cloneNode(true);
