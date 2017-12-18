@@ -73,16 +73,6 @@ window.setup = (function () {
     return wizardElement;
   }
 
-  function getRandomArrayElement(array) {
-
-    var min = 0;
-    var max = array.length;
-
-    var randomId = generateRandomInt(min, max);
-
-    return array[randomId];
-  }
-
   function getWizardsFragment(wizards, count) {
 
     var fragment = document.createDocumentFragment();
